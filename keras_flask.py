@@ -24,10 +24,6 @@ global model, graph
 model = load_model('./cnn-mnist')
 graph = graph = tf.compat.v1.get_default_graph()
 
-
-
-
-
 @app.route('/')
 def index():
     return render_template("index.html")
@@ -50,17 +46,9 @@ def loadImage(filename):
         return np.array(img)
     
 @app.route('/predict/', methods=['GET', 'POST'])
-def predict():
-    
-    print("Leo")
-    
-    #print(model.summary())
-    
+def predict():   
     imgData = request.get_data()
     convertImage(imgData)
-
-    print("leo2")
-
     img = "output.png"
     img = loadImage(img)
     classes = model.predict(img)
@@ -68,15 +56,8 @@ def predict():
     
     return str(predicted)
 
-    
-    print(imgData)
-    
-    return "leo"
-
 
     
     
 if __name__ == "__main__":
-
-
     app.run(host='0.0.0.0', port=5000)
